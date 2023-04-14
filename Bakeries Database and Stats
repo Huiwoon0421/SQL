@@ -1,4 +1,4 @@
-Create a bakeries database
+--Create a bakeries database
 
 CREATE TABLE bakeries (id INTEGER PRIMARY KEY, item TEXT, quantity INTEGER, price INTEGER, rating INTEGER);
 
@@ -19,8 +19,8 @@ INSERT INTO bakeries VALUES
 (14, "PANDAN KAYA CAKE", 2, 30, 8),
 (15, "ONDEH ONDEH CAKE", 2, 30, 8);
 
--Display the database ordered by price
-SELECT* FROM bakeries ORDER BY price;
+--Display the database ordered by price
+SELECT * FROM bakeries ORDER BY price;
 
--What is the total price of the items group by rating
+--What is the total price of the items group by rating
 SELECT rating, SUM(price) FROM bakeries GROUP BY rating;
