@@ -1,0 +1,26 @@
+Create a bakeries database
+
+CREATE TABLE bakeries (id INTEGER PRIMARY KEY, item TEXT, quantity INTEGER, price INTEGER, rating INTEGER);
+
+INSERT INTO bakeries VALUES
+(1, "CHOCOLATE CUPCAKE", 10, 5, 8),
+(2, "VANILA CUPCUAKE", 10, 5, 6),
+(3, "LEMON CUPCAKE", 10, 5, 7),
+(4, "BLUEBERRY CUPCAKE", 8, 5, 6),
+(5, "BANANA CUPCAKE", 8, 5, 7),
+(6, "NEWYORK CHEESECAKE", 5, 22, 8),
+(7, "BURNT CHEESECAKE", 5, 20, 7),
+(8, "BLUEBERRY CHEESECAKE", 5, 25, 6),
+(9, "MATCHA CHEESECAKE", 3, 30, 8),
+(10, "CHOCOLATE CHEESECAKE", 4, 25, 8),
+(11, "BIRTHDAY CAKE", 3, 35, 7),
+(12, "REDVELVET CAKE", 3, 35, 6),
+(13, "CHOCOLATE LOG CAKE", 4, 25, 8),
+(14, "PANDAN KAYA CAKE", 2, 30, 8),
+(15, "ONDEH ONDEH CAKE", 2, 30, 8);
+
+-Display the database ordered by price
+SELECT* FROM bakeries ORDER BY price;
+
+-What is the total price of the items group by rating
+SELECT rating, SUM(price) FROM bakeries GROUP BY rating;
