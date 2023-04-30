@@ -1,0 +1,47 @@
+/* To find out the product with highest price */
+
+SELECT product, MAX(price) FROM sales;
+
+/* To find out the product with lowest price */
+
+SELECT product, MIN(price) FROM sales;
+
+/* To find out the quantity of product sold in United Kingdom */
+
+SELECT count(product) FROM sales WHERE country = "United Kingdom"; 
+
+/* To select the average sales amount in United Kingdom */
+
+SELECT avg(price) AS average_sales FROM SALES where country = "United Kingdom"; 
+
+SELECT SUM(price) FROM sales where country = "United Kingdom"; 
+
+/* To find out total sales of each product */
+
+SELECT product, SUM(price) As total_sales FROM sales GROUP BY product;
+
+/* To find out the product having total sales > 35000 (using Having)*/
+
+SELECT product, SUM(price) AS total_sales FROM sales GROUP BY product HAVING total_sales>35000;
+
+/* To find out quantity sold by each product category */
+
+SELECT product, COUNT(product) As quantity_sold FROM sales GROUP BY PRODUCT;
+
+/*to group the data values that don’t exist yet (using CASE) - To find out which country sold the most furniture*/
+
+SELECT country, count(product) as quantity_sold, 
+    CASE
+        WHEN count(product) > 30 THEN "excellent"
+        WHEN count(product) >=10 THEN "satisfied"
+        ELSE "Poor"
+        END as "sales_rating" FROM sales Group by Country; 
+        
+
+/* to filter the data (using AND/OR)*/
+
+SELECT * FROM sales 
+WHERE (country = "United states" AND payment_type = "Mastercard"); 
+
+SELECT * FROM sales 
+WHERE (payment_type = "Visa" AND product = "Bed") OR (payment_type ="Amex");  
