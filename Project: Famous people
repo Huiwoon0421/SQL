@@ -1,0 +1,70 @@
+/* Create table about the people and what they do here */
+CREATE TABLE singers (id INTEGER PRIMARY KEY,
+    full_name TEXT,
+    age TEXT);
+
+INSERT INTO singers (full_name, age) VALUES("Taylor Swift", "33");
+INSERT INTO singers (full_name, age) VALUES("Burno Mars", "37");
+INSERT INTO singers (full_name, age) VALUES("Arianna Grande", "29");
+INSERT INTO singers (full_name, age) VALUES("Sam Smith", "30");
+INSERT INTO singers (full_name, age) VALUES("Ed Sheeran", "32");
+INSERT INTO singers (full_name, age) VALUES("Charlie Puth", "31");
+INSERT INTO singers (full_name, age) VALUES("Justin Bieber", "29");
+INSERT INTO singers (full_name, age) VALUES("Tate McRae", "19");
+INSERT INTO singers (full_name, age) VALUES("Harry Styles", "29");
+INSERT INTO singers (full_name, age) VALUES("Jacob Dodge Lawson", "22");
+
+CREATE TABLE songs (id INTEGER PRIMARY KEY,
+    title TEXT,
+    released_year TEXT,
+    singers_id INTEGER);
+    
+INSERT INTO songs (title, released_year, singers_id) VALUES("You Belong with Me", "2008", "1");
+INSERT INTO songs (title, released_year, singers_id) VALUES("Talking to the Moon", "2010", "2");
+INSERT INTO songs (title, released_year, singers_id) VALUES("Problem", "2014", "3");
+INSERT INTO songs (title, released_year, singers_id) VALUES("I'm Not the Only One", "2014", "4");
+INSERT INTO songs (title, released_year, singers_id) VALUES("Thinking Out Loud", "2014", "5");
+INSERT INTO songs (title, released_year, singers_id) VALUES("One Call Away", "2015", "6");
+INSERT INTO songs (title, released_year, singers_id) VALUES("Despacito", "2017", "7");
+INSERT INTO songs (title, released_year, singers_id) VALUES("You Broke Me First", "2020", "8");
+INSERT INTO songs (title, released_year, singers_id) VALUES("Watermelon Sugar", "2020", "9");
+INSERT INTO songs (title, released_year, singers_id) VALUES("Golden Hour", "2022", "10");
+
+CREATE TABLE singers_partner(id INTEGER PRIMARY KEY,
+    full_name TEXT,
+    age INTEGER,
+    singers_id INTEGER);
+
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("NULL", "NULL", "1");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("Jessica Caban", "40", "2");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("Dalton Gomez", "27", "3");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("NULL", "NULL", "4");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("Cherry Seaborn", "30", "5");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("NULL", "NULL", "6");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("Hailey Baldwin", "26", "7");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("NULL", "NULL", "8");
+INSERT INTO singers_partner (full_name, age, singers_id)
+VALUES("NULL", "NULL", "10");
+
+
+/*Match all Singers with and their partner in a row*/
+SELECT singers.full_name as singer, singers_partner.full_name as partner
+FROM singers
+LEFT OUTER JOIN singers_partner 
+ON singers.id = singers_partner.singers_id; 
+
+
+/*To Join the tables of singers and songs including the year of release*/
+
+SELECT singers.full_name, songs.title, songs.released_year
+FROM singers
+JOIN songs
+ON singers.id = songs.singers_id;
