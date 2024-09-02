@@ -39,3 +39,54 @@ SELECT AVG(price) FROM superstore;
 #Show a statistic about the price for items in the category of "Electronics".
 Select AVG(price) From superstore
 Where category = 'Electronics';
+
+#-- Write a SQL query that orders the items by price.
+
+SELECT item_name, price
+FROM superstore
+ORDER BY price; 
+
+-- Write a SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count
+
+SELECT MAX(price)
+FROM superstore; 
+
+SELECT COUNT(item_name)
+FROM superstore;
+
+SELECT AVG(price)
+FROM superstore;
+
+SELECT MIN(price)
+FROM superstore;
+
+SELECT SUM(price)
+FROM superstore
+WHERE category = 'kitchen supplies';
+
+-- Write a SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies"
+
+SELECT price, item_name
+FROM superstore
+WHERE category='Kitchen Supplies';
+
+SELECT MIN(price)
+FROM superstore
+WHERE category='Kitchen Supplies';
+
+SELECT MAX(price)
+FROM superstore
+WHERE category='Kitchen Supplies'
+
+-- Write a SQL to find the products that have average rating over 4.5
+
+SELECT item_name
+FROM superstore
+WHERE average_rating > 4.5;
+
+-- Write a SQL to find Electronic that sells at the price higher or equal to $399
+
+SELECT item_name
+FROM superstore
+WHERE price>= 399
+AND Category = 'Electronics';
