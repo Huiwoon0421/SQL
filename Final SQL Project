@@ -1,1 +1,133 @@
+# For this project, I downloaded a data called chinook, which represents a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.
+# I performed analytics on the data using SQL. 
+
+#1.
+Show Customers (their full names, customer ID, and country) who are not in the US. (Hint: != or <> can be used to say "is not equal to").
+
+SELECT FirstName, LastName, CustomerID, country
+FROM chinook.customers
+WHERE country <> 'USA';
+
+#2. 
+Show only the Customers from Brazil.
+
+SELECT FirstName, LastName, CustomerID, country
+FROM chinook.customers
+WHERE country='Brazil';
+
+#3.
+Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+
+SELECT Cust.FirstName, Cust.LastName, Inv.invoiceId, Inv.invoiceDate, Inv.BillingCountry
+FROM chinook.invoices Inv
+INNER JOIN chinook.customers Cust
+ON Inv.CustomerId = Cust.CustomerID
+WHERE Inv.BillingCountry = 'Brazil';
+
+#4.
+Show the Employees who are Sales Agents.
+
+SELECT * FROM chinook.Employees
+WHERE Title = "Sales Support Agent" ;
+
+#5.
+Find a unique/distinct list of billing countries from the Invoice table.
+
+SELECT DISTINCT BillingCountry FROM chinook.invoices;
+
+#6.
+Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+
+WITH INV_CTE AS 
+(SELECT INV.invoiceid, Cust.SupportRepid
+FROM invoices INV
+LEFT JOIN Customers Cust
+ON INV.CustomerID= Cust.CustomerID)
+
+SELECT INV_CTE.invoiceid, EMP.EmployeeId, EMP.LastName, EMP.FirstName
+FROM INV_CTE
+INNER JOIN employees EMP
+ON INV_CTE.SupportRepid=EMP.EmployeeId
+WHERE Title='Sales Support Agent';
+
+#7.
+Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+
+SELECT Cust.FirstName, Cust.LastName, Cust.Country, Emp.FirstName, Emp.LastName, INV.total
+FROM Chinook.invoices INV
+JOIN Chinook.customers Cust
+ON INV.CustomerId = Cust.CustomerId
+JOIN Chinook.employees Emp
+ON Cust.SupportRepid=Emp.EmployeeID;
+
+#8/
+How many Invoices were there in 2009?
+
+SELECT COUNT(InvoiceID)
+FROM chinook.invoices
+WHERE InvoiceDate LIKE '%2009%';
+
+#9.
+What are the total sales for 2009?
+
+SELECT SUM(Total)
+FROM chinook.invoices
+WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+#10.
+Write a query that includes the purchased track name with each invoice line ID.
+
+SELECT TRA.Name, InvoiceLineId
+FROM chinook.tracks TRA
+INNER JOIN chinook.invoice_items INV
+ON TRA.TrackId = INV.TrackId;
+
+#11.
+Write a query that includes the purchased track name AND artist name with each invoice line ID.
+
+SELECT TRA.Name, Art.Name, INV.InvoiceLineId
+FROM chinook.tracks TRA
+INNER JOIN chinook.invoice_items INV
+ON TRA.TrackId = INV.TrackId
+LEFT JOIN chinook.albums Alb
+ON TRA.AlbumId = Alb.AlbumId
+LEFT JOIN chinook.artists Art
+ON Alb.ArtistId = Art.ArtistId;
+
+#12.
+Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+
+SELECT T.Name AS 'TrackName', A.Title AS 'AlbumName', M.Name AS 'MediaTypeName', G.Name AS'GenresName'
+FROM chinook.tracks T
+JOIN chinook.albums A
+ON A.AlbumId = T.AlbumId
+JOIN chinook.media_types M
+ON M.MediaTypeId = T.MediaTypeId
+JOIN chinook.genres G
+ON G.GenreId = T.GenreId;
+
+#13.
+Show the total sales made by each sales agent.
+
+SELECT EMP.LastName, EMP.FirstName, ROUND(SUM(INV.Total),2) AS TotalSales
+FROM chinook.invoices INV
+JOIN chinook.customers Cust
+ON INV.CustomerId = Cust.CustomerId
+JOIN chinook.employees EMP
+ON Cust.SupportRepid = EMP.EmployeeId
+GROUP BY EMP.LastName, EMP.FirstName;
+
+#14.
+Which sales agent made the most dollars in sales in 2009?
+
+SELECT EMP.LastName, EMP.FirstName, ROUND(SUM(INV.Total),2) AS TotalSales
+FROM chinook.invoices INV
+JOIN chinook.customers Cust
+ON INV.CustomerId = Cust.CustomerId
+JOIN chinook.employees EMP
+ON Cust.SupportRepid = EMP.EmployeeId
+WHERE INV.invoiceDate LIKE '%2009%'
+GROUP BY EMP.LastName, EMP.FirstName
+ORDER BY TotalSales desc LIMIT 1;
+
 
