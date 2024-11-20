@@ -130,4 +130,27 @@ WHERE INV.invoiceDate LIKE '%2009%'
 GROUP BY EMP.LastName, EMP.FirstName
 ORDER BY TotalSales desc LIMIT 1;
 
+#15.
+Which track sells at the highest price?
 
+SELECT NAME, MAX(UnitPrice)
+FROM chinook.tracks;
+
+#16.
+Which customer spent the most and how much he/she has spent and from which country?
+
+SELECT Cust.LastName, Cust.FirstName, Cust.Country, ROUND(SUM(INV.Total),2) AS TotalSpent
+FROM chinook.customers Cust
+LEFT JOIN chinook.invoices INV
+ON Cust.CustomerId = INV.CustomerId
+GROUP BY Cust.LastName, Cust.FirstName
+ORDER BY ROUND(SUM(INV.Total),2) desc
+LIMIT 1;
+
+#17.
+Which composer produces the highest number of track and how many he has produced?
+
+SELECT COUNT(Name), Composer
+FROM chinook.tracks
+GROUP BY Composer
+ORDER BY COUNT(Name) desc;
