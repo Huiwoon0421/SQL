@@ -30,61 +30,97 @@ VALUES
 #For this project, I used SQL to query the Superstore database to get information about items sold at the store and their prices.
 
 #Use a SELECT statement to order the items by price.
-SELECT item_name, price FROM superstore
-ORDER BY price desc;  
+
+SELECT item_name
+, price 
+FROM superstore
+ORDER BY price desc
+;  
 
 #Show a statistic about the item prices.
-SELECT AVG(price) FROM superstore;
+
+SELECT AVG(price) 
+FROM superstore
+;
+
+SELECT MAX(price)
+, item_name
+FROM superstore
+;
+
+SELECT MIN(price)
+, item_name
+FROM superstore
+;
+
+SELECT AVG(price)
+FROM superstore
+;
+
+SELECT COUNT (item_name)
+, category
+FROM superstore
+GROUP by category
+;
 
 #Show a statistic about the price for items in the category of "Electronics".
-Select AVG(price) From superstore
-Where category = 'Electronics';
+
+SELECT AVG(price) 
+From superstore
+Where category = 'Electronics'
+;
+
+#List the items and prices in the Kitchen category from highest to lowest.
+
+SELECT item_name
+, price
+FROM superstore
+WHERE category = "Kitchen Supplies"
+ORDER BY price desc
+;
 
 #-- Write a SQL query that orders the items by price.
 
-SELECT item_name, price
+SELECT item_name
+, price
 FROM superstore
 ORDER BY price; 
 
--- Write a SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count
+#--Find out the stock quantity of all items and group them by category with the stock quantity from high to low.
 
-SELECT MAX(price)
-FROM superstore; 
-
-SELECT COUNT(item_name)
-FROM superstore;
-
-SELECT AVG(price)
-FROM superstore;
-
-SELECT MIN(price)
-FROM superstore;
-
-SELECT SUM(price)
+SELECT stock_quantity
+, item_name
+, category
 FROM superstore
-WHERE category = 'kitchen supplies';
+GROUP BY category
+ORDER BY stock_quantity desc
+;
 
--- Write a SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies"
+#-- Write a SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies"
 
 SELECT price, item_name
 FROM superstore
-WHERE category='Kitchen Supplies';
+WHERE category='Kitchen Supplies'
+;
 
 SELECT MIN(price)
 FROM superstore
-WHERE category='Kitchen Supplies';
+WHERE category='Kitchen Supplies'
+;
 
 SELECT MAX(price)
 FROM superstore
 WHERE category='Kitchen Supplies'
+;
 
--- Write a SQL to find the products that have average rating over 4.5
+#--Write a SQL to find the products that have average rating over 4.5
 
 SELECT item_name
 FROM superstore
-WHERE average_rating > 4.5;
+WHERE average_rating > 4.5
+;
 
--- Write a SQL to find Electronic that sells at the price higher or equal to $399
+#--Write a SQL to find Electronic that sells at the price higher or equal to $399
 
 SELECT item_name
 FROM superstore
